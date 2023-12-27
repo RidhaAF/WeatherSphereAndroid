@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ridhaaf.wheatersphereandroid.R
 
-val fonts = FontFamily(
+val poppinsFamily = FontFamily(
     Font(R.font.poppins_thin, FontWeight.W100),
     Font(R.font.poppins_thin_italic, FontWeight.W100, FontStyle.Italic),
     Font(R.font.poppins_extra_light, FontWeight.W200),
@@ -30,63 +30,63 @@ val fonts = FontFamily(
 
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
     bodyMedium = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.sp
     ),
     bodySmall = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp,
         lineHeight = 22.sp,
         letterSpacing = 0.sp
     ),
     labelLarge = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.sp
     ),
     labelMedium = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = fonts,
+        fontFamily = poppinsFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 16.sp,

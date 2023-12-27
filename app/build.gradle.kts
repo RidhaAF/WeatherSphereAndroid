@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -20,14 +22,22 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // load the values from .properties file
+        val envFile = project.rootProject.file("env.properties")
+        val properties = Properties()
+        properties.load(envFile.inputStream())
+
+        // return empty key in case something goes wrong
+        val baseUrl = properties.getProperty("BASE_URL") ?: ""
+        val apiKey = properties.getProperty("API_KEY") ?: ""
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -42,7 +52,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.5"
     }
     packaging {
         resources {
@@ -53,9 +63,9 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -91,5 +101,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     // Gson for JSON Serialization/Deserialization
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.google.code.gson:gson:2.10")
+
+    // Room
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 }
