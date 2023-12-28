@@ -7,6 +7,7 @@ import com.ridhaaf.wheatersphereandroid.data.datasources.local.dao.WeatherDao
 import com.ridhaaf.wheatersphereandroid.data.datasources.remote.api.WeatherApi
 import com.ridhaaf.wheatersphereandroid.data.models.Weather
 import com.ridhaaf.wheatersphereandroid.domain.repositories.WeatherRepository
+import com.ridhaaf.wheatersphereandroid.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
@@ -16,22 +17,28 @@ class WeatherRepositoryImpl(
     private val dao: WeatherDao,
 ) : WeatherRepository {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override fun getWeather(lat: Double, lon: Double): Flow<Weather> = flow {
+    override fun getWeather(lat: Double, lon: Double): Flow<Resource<Weather>> = flow {
+        emit(Resource.Loading())
+
         try {
             val remoteGetWeather = api.getWeather(lat, lon)
             dao.deleteWeather(remoteGetWeather.toWeather())
             dao.insertWeather(remoteGetWeather.toWeather())
         } catch (e: HttpException) {
             emit(
-                Weather.emptyWeather()
+                Resource.Error(
+                    e.localizedMessage ?: "An unexpected error occurred"
+                )
             )
         } catch (e: IOException) {
             emit(
-                Weather.emptyWeather()
+                Resource.Error(
+                    e.localizedMessage ?: "Couldn't reach server. Check your internet connection"
+                )
             )
         }
 
         val weather = dao.getWeather().toWeather()
-        emit(weather)
+        emit(Resource.Success(weather))
     }
 }

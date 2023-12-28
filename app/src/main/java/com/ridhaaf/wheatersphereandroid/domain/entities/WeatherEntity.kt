@@ -6,8 +6,7 @@ import com.ridhaaf.wheatersphereandroid.data.models.Weather
 
 @Entity(tableName = "weather")
 data class WeatherEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val appTemp: Double,
     val aqi: Int,
     val cityName: String,
@@ -47,51 +46,51 @@ data class WeatherEntity(
     val windDir: Int,
     val windSpd: Double,
 ) {
-    companion object {
-        fun fromWeather(weather: Weather): WeatherEntity {
-            return WeatherEntity(
-                id = weather.id,
-                appTemp = weather.appTemp,
-                aqi = weather.aqi,
-                cityName = weather.cityName,
-                clouds = weather.clouds,
-                countryCode = weather.countryCode,
-                datetime = weather.datetime,
-                dewpt = weather.dewpt,
-                dhi = weather.dhi,
-                dni = weather.dni,
-                elevAngle = weather.elevAngle,
-                ghi = weather.ghi,
-                gust = weather.gust,
-                hAngle = weather.hAngle,
-                lat = weather.lat,
-                lon = weather.lon,
-                obTime = weather.obTime,
-                pod = weather.pod,
-                precip = weather.precip,
-                pres = weather.pres,
-                rh = weather.rh,
-                slp = weather.slp,
-                snow = weather.snow,
-                solarRad = weather.solarRad,
-                sources = weather.sources,
-                stateCode = weather.stateCode,
-                station = weather.station,
-                sunrise = weather.sunrise,
-                sunset = weather.sunset,
-                temp = weather.temp,
-                timezone = weather.timezone,
-                ts = weather.ts,
-                uv = weather.uv,
-                vis = weather.vis,
-                weather = weather.weather.let { WeatherDescriptionEntity.fromWeatherDescription(it) },
-                windCdir = weather.windCdir,
-                windCdirFull = weather.windCdirFull,
-                windDir = weather.windDir,
-                windSpd = weather.windSpd,
-            )
-        }
-    }
+//    companion object {
+//        fun fromWeather(weather: Weather): WeatherEntity {
+//            return WeatherEntity(
+//                id = weather.id,
+//                appTemp = weather.appTemp,
+//                aqi = weather.aqi,
+//                cityName = weather.cityName,
+//                clouds = weather.clouds,
+//                countryCode = weather.countryCode,
+//                datetime = weather.datetime,
+//                dewpt = weather.dewpt,
+//                dhi = weather.dhi,
+//                dni = weather.dni,
+//                elevAngle = weather.elevAngle,
+//                ghi = weather.ghi,
+//                gust = weather.gust,
+//                hAngle = weather.hAngle,
+//                lat = weather.lat,
+//                lon = weather.lon,
+//                obTime = weather.obTime,
+//                pod = weather.pod,
+//                precip = weather.precip,
+//                pres = weather.pres,
+//                rh = weather.rh,
+//                slp = weather.slp,
+//                snow = weather.snow,
+//                solarRad = weather.solarRad,
+//                sources = weather.sources,
+//                stateCode = weather.stateCode,
+//                station = weather.station,
+//                sunrise = weather.sunrise,
+//                sunset = weather.sunset,
+//                temp = weather.temp,
+//                timezone = weather.timezone,
+//                ts = weather.ts,
+//                uv = weather.uv,
+//                vis = weather.vis,
+//                weather = weather.weather.let { WeatherDescriptionEntity.fromWeatherDescription(it) },
+//                windCdir = weather.windCdir,
+//                windCdirFull = weather.windCdirFull,
+//                windDir = weather.windDir,
+//                windSpd = weather.windSpd,
+//            )
+//        }
+//    }
 
     fun toWeather(): Weather {
         return Weather(

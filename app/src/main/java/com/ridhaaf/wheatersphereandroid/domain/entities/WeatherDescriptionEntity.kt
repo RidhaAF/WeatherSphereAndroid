@@ -7,15 +7,15 @@ data class WeatherDescriptionEntity(
     val code: Int,
     val icon: String,
 ) {
-    companion object {
-        fun fromWeatherDescription(weatherDescription: WeatherDescription): WeatherDescriptionEntity {
-            return WeatherDescriptionEntity(
-                description = weatherDescription.description,
-                code = weatherDescription.code,
-                icon = weatherDescription.icon,
-            )
-        }
-    }
+//    companion object {
+//        fun fromWeatherDescription(weatherDescription: WeatherDescription): WeatherDescriptionEntity {
+//            return WeatherDescriptionEntity(
+//                description = weatherDescription.description,
+//                code = weatherDescription.code,
+//                icon = weatherDescription.icon,
+//            )
+//        }
+//    }
 
     fun toWeatherDescription(): WeatherDescription {
         return WeatherDescription(

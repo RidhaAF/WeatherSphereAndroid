@@ -1,15 +1,15 @@
 package com.ridhaaf.wheatersphereandroid.data.datasources.remote.api
 
+import com.ridhaaf.wheatersphereandroid.BuildConfig
 import com.ridhaaf.wheatersphereandroid.data.datasources.remote.dto.WeatherDto
-import com.ridhaaf.wheatersphereandroid.utils.AppConfig
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface WeatherApi {
-    @GET("current?lat={lat}&lon={lon}&key={apiKey}")
+    @GET("current")
     suspend fun getWeather(
-        @Path("lat") lat: Double,
-        @Path("lon") lon: Double,
-        @Path("apiKey") apiKey: String = AppConfig.apiKey,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("key") apiKey: String = BuildConfig.API_KEY,
     ): WeatherDto
 }

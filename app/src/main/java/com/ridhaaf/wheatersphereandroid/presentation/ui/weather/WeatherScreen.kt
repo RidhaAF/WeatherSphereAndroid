@@ -1,5 +1,7 @@
 package com.ridhaaf.wheatersphereandroid.presentation.ui.weather
 
+import android.annotation.SuppressLint
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,8 +9,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,29 +26,61 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.ridhaaf.wheatersphereandroid.R
 import com.ridhaaf.wheatersphereandroid.presentation.theme.poppinsFamily
+import com.ridhaaf.wheatersphereandroid.utils.UiEvent
+import kotlinx.coroutines.flow.collectLatest
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun WeatherScreen() {
-    Column(
+fun WeatherScreen(
+    viewModel: WeatherViewModel = hiltViewModel(),
+    navController: NavController? = null,
+) {
+    val state = viewModel.state.value
+    val weather = state.weather
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is UiEvent.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(event.message)
+                }
+            }
+        }
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        WeatherCity()
-        WeatherDescription()
-        Spacer(modifier = Modifier.height(16.dp))
-        WeatherIcon()
-        Spacer(modifier = Modifier.height(16.dp))
-        WeatherTemperature()
+        if (state.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.padding(16.dp),
+            )
+        } else {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                WeatherCity(weather.cityName)
+                WeatherDescription(weather.weather.description)
+                Spacer(modifier = Modifier.height(16.dp))
+                WeatherIcon()
+                Spacer(modifier = Modifier.height(16.dp))
+                WeatherTemperature(weather.temp)
+            }
+        }
     }
 }
 
 @Composable
-fun WeatherCity() {
+fun WeatherCity(city: String = "Bandung") {
     Text(
-        text = "Bandung",
+        text = city,
         fontFamily = poppinsFamily,
         fontSize = 32.sp,
         fontWeight = FontWeight.Medium,
@@ -47,9 +88,9 @@ fun WeatherCity() {
 }
 
 @Composable
-fun WeatherDescription() {
+fun WeatherDescription(description: String = "Sunny") {
     Text(
-        text = "Light Rain",
+        text = description,
         color = Color.Gray,
         fontFamily = poppinsFamily,
         fontSize = 18.sp,
@@ -57,7 +98,7 @@ fun WeatherDescription() {
 }
 
 @Composable
-fun WeatherIcon() {
+fun WeatherIcon(@DrawableRes icon: Int = R.drawable.c03d) {
     val painter = painterResource(R.drawable.c03d)
 
     Image(
@@ -70,9 +111,9 @@ fun WeatherIcon() {
 }
 
 @Composable
-fun WeatherTemperature() {
+fun WeatherTemperature(temperature: Double = 25.0) {
     Text(
-        text = "26°C",
+        text = "$temperature°C",
         fontFamily = poppinsFamily,
         fontSize = 64.sp,
         fontWeight = FontWeight.Bold,

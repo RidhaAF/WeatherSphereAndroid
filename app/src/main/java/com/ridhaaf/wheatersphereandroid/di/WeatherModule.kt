@@ -2,13 +2,13 @@ package com.ridhaaf.wheatersphereandroid.di
 
 import android.app.Application
 import androidx.room.Room
+import com.ridhaaf.wheatersphereandroid.BuildConfig
 import com.ridhaaf.wheatersphereandroid.data.datasources.local.Converters
 import com.ridhaaf.wheatersphereandroid.data.datasources.local.db.WeatherDatabase
 import com.ridhaaf.wheatersphereandroid.data.datasources.remote.api.WeatherApi
 import com.ridhaaf.wheatersphereandroid.data.repositories.WeatherRepositoryImpl
 import com.ridhaaf.wheatersphereandroid.domain.repositories.WeatherRepository
 import com.ridhaaf.wheatersphereandroid.domain.usecases.WeatherUseCase
-import com.ridhaaf.wheatersphereandroid.utils.AppConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,7 +49,7 @@ object WeatherModule {
     @Singleton
     fun provideWeatherApi(): WeatherApi {
         return Retrofit.Builder()
-            .baseUrl(AppConfig.baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WeatherApi::class.java)

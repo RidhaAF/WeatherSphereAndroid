@@ -17,6 +17,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -30,7 +31,9 @@ android {
 
         // return empty key in case something goes wrong
         val baseUrl = properties.getProperty("BASE_URL") ?: ""
+        buildConfigField("String", "BASE_URL", baseUrl)
         val apiKey = properties.getProperty("API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", apiKey)
     }
 
     buildTypes {
@@ -49,6 +52,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -89,6 +93,13 @@ dependencies {
     val daggerHiltVersion = "2.50"
     implementation("com.google.dagger:hilt-android:$daggerHiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
+    // For instrumentation tests
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerHiltVersion")
+    kspAndroidTest("com.google.dagger:hilt-compiler:$daggerHiltVersion")
+    // For local unit tests
+    testImplementation("com.google.dagger:hilt-android-testing:$daggerHiltVersion")
+    kspTest("com.google.dagger:hilt-compiler:$daggerHiltVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // Coroutines
     val coroutinesVersion = "1.7.3"

@@ -1,6 +1,5 @@
 package com.ridhaaf.wheatersphereandroid.data.datasources.remote.dto
 
-import com.ridhaaf.wheatersphereandroid.data.models.WeatherDescription
 import com.ridhaaf.wheatersphereandroid.domain.entities.WeatherDescriptionEntity
 
 data class WeatherDescriptionDto(
@@ -8,15 +7,15 @@ data class WeatherDescriptionDto(
     val code: Int,
     val icon: String,
 ) {
-    companion object {
-        fun fromWeatherDescription(weatherDescription: WeatherDescription): WeatherDescriptionEntity {
-            return WeatherDescriptionEntity(
-                description = weatherDescription.description,
-                code = weatherDescription.code,
-                icon = weatherDescription.icon,
-            )
-        }
-    }
+//    companion object {
+//        fun fromWeatherDescription(weatherDescription: WeatherDescription?): WeatherDescriptionEntity {
+//            return WeatherDescriptionEntity(
+//                description = weatherDescription?.description.orEmpty(),
+//                code = weatherDescription?.code ?: 0,
+//                icon = weatherDescription?.icon.orEmpty(),
+//            )
+//        }
+//    }
 
     fun toWeatherDescription(): WeatherDescriptionEntity {
         return WeatherDescriptionEntity(
