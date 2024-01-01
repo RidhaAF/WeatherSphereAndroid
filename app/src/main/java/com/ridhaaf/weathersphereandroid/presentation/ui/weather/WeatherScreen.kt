@@ -138,8 +138,10 @@ fun WeatherIconImage(@DrawableRes id: Int) {
 
 @Composable
 fun WeatherTemperature(temperature: Double) {
+    val temp: Int = temperature.roundToInt()
+
     Text(
-        text = "$temperature°C",
+        text = "$temp°C",
         fontFamily = poppinsFamily,
         fontSize = 64.sp,
         fontWeight = FontWeight.Bold,
