@@ -1,4 +1,4 @@
-package com.ridhaaf.wheatersphereandroid.presentation.theme
+package com.ridhaaf.weathersphereandroid.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
