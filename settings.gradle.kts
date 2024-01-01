@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WheaterSphereAndroid"
+rootProject.name = "WeatherSphereAndroid"
 include(":app")

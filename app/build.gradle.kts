@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ridhaaf.wheatersphereandroid"
+    namespace = "com.ridhaaf.weathersphereandroid"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ridhaaf.wheatersphereandroid"
+        applicationId = "com.ridhaaf.weathersphereandroid"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -110,6 +110,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     // Gson for JSON Serialization/Deserialization
     implementation("com.google.code.gson:gson:2.10")
