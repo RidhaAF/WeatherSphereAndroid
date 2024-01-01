@@ -1,6 +1,7 @@
 package com.ridhaaf.weathersphereandroid.presentation.ui.weather
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +35,7 @@ import com.ridhaaf.weathersphereandroid.R
 import com.ridhaaf.weathersphereandroid.presentation.theme.poppinsFamily
 import com.ridhaaf.weathersphereandroid.utils.UiEvent
 import kotlinx.coroutines.flow.collectLatest
+import kotlin.math.roundToInt
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -76,7 +79,7 @@ fun WeatherScreen(
                 WeatherCity(weather.cityName)
                 WeatherDescription(weather.weather.description)
                 Spacer(modifier = Modifier.height(16.dp))
-                WeatherIcon()
+                WeatherIcon(weather.weather.icon)
                 Spacer(modifier = Modifier.height(16.dp))
                 WeatherTemperature(weather.temp)
             }
@@ -85,7 +88,7 @@ fun WeatherScreen(
 }
 
 @Composable
-fun WeatherCity(city: String = "Bandung") {
+fun WeatherCity(city: String) {
     Text(
         text = city,
         fontFamily = poppinsFamily,
@@ -95,7 +98,7 @@ fun WeatherCity(city: String = "Bandung") {
 }
 
 @Composable
-fun WeatherDescription(description: String = "Sunny") {
+fun WeatherDescription(description: String) {
     Text(
         text = description,
         color = Color.Gray,
@@ -104,9 +107,25 @@ fun WeatherDescription(description: String = "Sunny") {
     )
 }
 
+@SuppressLint("DiscouragedApi")
 @Composable
-fun WeatherIcon(@DrawableRes icon: Int = R.drawable.c03d) {
-    val painter = painterResource(icon)
+fun WeatherIcon(icon: String, context: Context = LocalContext.current) {
+    val resourceId = context.resources.getIdentifier(
+        icon,
+        "drawable",
+        context.packageName,
+    )
+
+    if (resourceId != 0) {
+        WeatherIconImage(resourceId)
+    } else {
+        WeatherIconImage(R.drawable.c03d)
+    }
+}
+
+@Composable
+fun WeatherIconImage(@DrawableRes id: Int) {
+    val painter = painterResource(id)
 
     Image(
         painter = painter,
@@ -118,7 +137,7 @@ fun WeatherIcon(@DrawableRes icon: Int = R.drawable.c03d) {
 }
 
 @Composable
-fun WeatherTemperature(temperature: Double = 25.0) {
+fun WeatherTemperature(temperature: Double) {
     Text(
         text = "$temperature°C",
         fontFamily = poppinsFamily,
