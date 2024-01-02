@@ -12,8 +12,8 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(weather: WeatherEntity)
 
-    @Delete
-    suspend fun deleteWeather(weather: WeatherEntity)
+    @Query("DELETE FROM weather")
+    suspend fun deleteWeather()
 
     @Query("SELECT * FROM weather")
     suspend fun getWeather(): WeatherEntity

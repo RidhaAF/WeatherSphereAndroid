@@ -23,7 +23,7 @@ class WeatherRepositoryImpl(
         try {
             val remoteGetWeather = api.getWeather(lat, lon)
             val data = remoteGetWeather.data.first().toWeather()
-            dao.deleteWeather(data)
+            dao.deleteWeather()
             dao.insertWeather(data)
         } catch (e: HttpException) {
             emit(
