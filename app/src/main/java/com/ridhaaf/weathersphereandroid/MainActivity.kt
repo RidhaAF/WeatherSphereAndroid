@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
 
                     WeatherScreen(
                         navController = navController,
+                        context = this@MainActivity
                     )
                 }
             }

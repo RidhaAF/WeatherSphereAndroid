@@ -42,12 +42,14 @@ import kotlin.math.roundToInt
 fun WeatherScreen(
     viewModel: WeatherViewModel = hiltViewModel(),
     navController: NavController? = null,
+    context: Context = LocalContext.current,
 ) {
     val state = viewModel.state.value
     val weather = state.weather
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = true) {
+        viewModel.getUserLocation(context)
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is UiEvent.ShowSnackbar -> {
